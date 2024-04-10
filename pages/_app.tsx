@@ -48,7 +48,7 @@ require('dayjs/locale/es-mx')
 NProgress.configure({ showSpinner: false })
 
 function Layout({ children }: PropsWithChildren) {
-  const { META_COMPANY_NAME } = useEnvironment()
+  const { META_TITLE } = useEnvironment()
   const router = useRouter()
   const { address } = useAccount()
   const userProfileLink = useMemo(
@@ -94,11 +94,23 @@ function Layout({ children }: PropsWithChildren) {
     return [
       { href: '/explore', label: texts[locale].explore },
       { href: userProfileLink, label: texts[locale].profile },
-      { href: '/', label: texts[locale].support },
-      { href: '/', label: texts[locale].terms },
-      { href: '/', label: texts[locale].privacy },
-      { href: 'https://twitter.com', label: 'Twitter' },
-      { href: 'https://discord.com', label: 'Discord' },
+      {
+        href: 'https://docs.google.com/forms/d/e/1FAIpQLSeGiFUKQwgosXFLoDNXOaEjQukk6M65L-pEEf_vIApH7_ZkLw/viewform',
+        label: texts[locale].support,
+      },
+      {
+        href: 'https://www.blockchaingamealliance.org/tc/',
+        label: texts[locale].terms,
+      },
+      {
+        href: 'https://www.blockchaingamealliance.org/pp/',
+        label: texts[locale].privacy,
+      },
+      { href: 'https://twitter.com/BGameAlliance', label: 'Twitter' },
+      {
+        href: 'https://www.linkedin.com/company/blockchain-game-alliance/',
+        label: 'Linkedin',
+      },
     ].filter(Boolean)
   }, [router.locale, userProfileLink])
 
@@ -117,7 +129,7 @@ function Layout({ children }: PropsWithChildren) {
         }}
       />
       {children}
-      <Footer name={META_COMPANY_NAME} links={footerLinks} />
+      <Footer name={META_TITLE} links={footerLinks} />
     </Box>
   )
 }
