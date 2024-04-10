@@ -41,7 +41,7 @@ import LargeLayout from '../../../layouts/large'
 import { dateFromNow, formatError } from '../../../utils'
 
 const FixedPricePage: NextPage = () => {
-  const { BASE_URL, PAGINATION_LIMIT } = useEnvironment()
+  const { PAGINATION_LIMIT } = useEnvironment()
   const { t } = useTranslation('templates')
   const { replace, pathname, query } = useRouter()
   const { limit, offset, page } = usePaginateQuery()
@@ -80,11 +80,7 @@ const FixedPricePage: NextPage = () => {
 
   return (
     <LargeLayout>
-      <UserProfileTemplate
-        address={userAddress}
-        currentTab="offers"
-        loginUrlForReferral={BASE_URL + '/login'}
-      >
+      <UserProfileTemplate address={userAddress} currentTab="offers">
         <Stack spacing={6}>
           <Box ml="auto" w={{ base: 'full', md: 'min-content' }}>
             <Select<OffersOrderBy>
