@@ -22,7 +22,7 @@ export default function AccountVerificationValidated({
   children: JSX.Element
 } {
   return {
-    link: '/create',
+    link: '/',
     userImage: accountVerification.account.image,
     userAddress: accountVerification.account.address,
     children: (

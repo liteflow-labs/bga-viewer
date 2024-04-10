@@ -93,7 +93,6 @@ function Layout({ children }: PropsWithChildren) {
     const locale = (router.locale || 'en') as keyof typeof texts
     return [
       { href: '/explore', label: texts[locale].explore },
-      { href: '/create', label: texts[locale].create },
       { href: userProfileLink, label: texts[locale].profile },
       { href: '/', label: texts[locale].support },
       { href: '/', label: texts[locale].terms },
