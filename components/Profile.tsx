@@ -12,15 +12,9 @@ import UserProfileInfo from './User/Profile/Info'
 type Props = PropsWithChildren<{
   address: string
   currentTab: TabsEnum
-  loginUrlForReferral?: string
 }>
 
-const UserProfileTemplate: FC<Props> = ({
-  address,
-  currentTab,
-  loginUrlForReferral,
-  children,
-}) => {
+const UserProfileTemplate: FC<Props> = ({ address, currentTab, children }) => {
   const { address: currentAccount } = useAccount()
   const { data: accountData } = useFetchAccountDetailQuery({
     variables: { address },
@@ -41,11 +35,7 @@ const UserProfileTemplate: FC<Props> = ({
         spacingY={{ base: 12, lg: 0 }}
         columns={{ base: 1, lg: 4 }}
       >
-        <UserProfileInfo
-          address={address}
-          user={account}
-          loginUrlForReferral={loginUrlForReferral}
-        />
+        <UserProfileInfo address={address} user={account} />
         <GridItem colSpan={{ lg: 3 }}>
           <Stack spacing={6}>
             <UserProfileNavigation

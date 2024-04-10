@@ -42,7 +42,7 @@ import LargeLayout from '../../../../layouts/large'
 import { dateFromNow } from '../../../../utils'
 
 const TradeSoldPage: NextPage = () => {
-  const { BASE_URL, PAGINATION_LIMIT, CHAINS } = useEnvironment()
+  const { PAGINATION_LIMIT, CHAINS } = useEnvironment()
   const { t } = useTranslation('templates')
   const { replace, pathname, query } = useRouter()
   const { limit, offset, page } = usePaginateQuery()
@@ -71,11 +71,7 @@ const TradeSoldPage: NextPage = () => {
 
   return (
     <LargeLayout>
-      <UserProfileTemplate
-        address={userAddress}
-        currentTab="trades"
-        loginUrlForReferral={BASE_URL + '/login'}
-      >
+      <UserProfileTemplate address={userAddress} currentTab="trades">
         <Stack spacing={6}>
           <Flex
             justify={{ md: 'space-between' }}

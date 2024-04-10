@@ -41,7 +41,7 @@ import LargeLayout from '../../../../layouts/large'
 import { dateFromNow, formatError } from '../../../../utils'
 
 const BidPlacedPage: NextPage = () => {
-  const { BASE_URL, PAGINATION_LIMIT } = useEnvironment()
+  const { PAGINATION_LIMIT } = useEnvironment()
   const { t } = useTranslation('templates')
   const { replace, pathname, query } = useRouter()
   const { limit, offset, page } = usePaginateQuery()
@@ -78,11 +78,7 @@ const BidPlacedPage: NextPage = () => {
 
   return (
     <LargeLayout>
-      <UserProfileTemplate
-        address={userAddress}
-        currentTab="bids"
-        loginUrlForReferral={BASE_URL + '/login'}
-      >
+      <UserProfileTemplate address={userAddress} currentTab="bids">
         <Stack spacing={6}>
           <Flex
             justify={{ md: 'space-between' }}

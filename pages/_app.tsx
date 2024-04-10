@@ -48,7 +48,7 @@ require('dayjs/locale/es-mx')
 NProgress.configure({ showSpinner: false })
 
 function Layout({ children }: PropsWithChildren) {
-  const { META_COMPANY_NAME } = useEnvironment()
+  const { META_TITLE } = useEnvironment()
   const router = useRouter()
   const { address } = useAccount()
   const userProfileLink = useMemo(
@@ -61,7 +61,7 @@ function Layout({ children }: PropsWithChildren) {
         explore: 'Explore',
         create: 'Create',
         profile: 'Profile',
-        support: 'Support',
+        support: 'Join the BGA',
         terms: 'Terms',
         privacy: 'Privacy',
       },
@@ -69,7 +69,7 @@ function Layout({ children }: PropsWithChildren) {
         explore: '検索',
         create: '作成',
         profile: 'プロフィール',
-        support: 'サポート',
+        support: 'BGAに参加する',
         terms: '利用規約',
         privacy: 'プライバシーポリシー',
       },
@@ -77,7 +77,7 @@ function Layout({ children }: PropsWithChildren) {
         explore: '探讨',
         create: '创造',
         profile: '资料',
-        support: '支持',
+        support: '加入BGA',
         terms: '条款',
         privacy: '隐私',
       },
@@ -85,7 +85,7 @@ function Layout({ children }: PropsWithChildren) {
         explore: 'Explorar',
         create: 'Crear',
         profile: 'Perfil',
-        support: 'Apoyo',
+        support: 'Únase a la BGA',
         terms: 'Letra chica',
         privacy: 'Privacidad',
       },
@@ -93,13 +93,24 @@ function Layout({ children }: PropsWithChildren) {
     const locale = (router.locale || 'en') as keyof typeof texts
     return [
       { href: '/explore', label: texts[locale].explore },
-      { href: '/create', label: texts[locale].create },
       { href: userProfileLink, label: texts[locale].profile },
-      { href: '/', label: texts[locale].support },
-      { href: '/', label: texts[locale].terms },
-      { href: '/', label: texts[locale].privacy },
-      { href: 'https://twitter.com', label: 'Twitter' },
-      { href: 'https://discord.com', label: 'Discord' },
+      {
+        href: 'https://docs.google.com/forms/d/e/1FAIpQLSeGiFUKQwgosXFLoDNXOaEjQukk6M65L-pEEf_vIApH7_ZkLw/viewform',
+        label: texts[locale].support,
+      },
+      {
+        href: 'https://www.blockchaingamealliance.org/tc/',
+        label: texts[locale].terms,
+      },
+      {
+        href: 'https://www.blockchaingamealliance.org/pp/',
+        label: texts[locale].privacy,
+      },
+      { href: 'https://twitter.com/BGameAlliance', label: 'Twitter' },
+      {
+        href: 'https://www.linkedin.com/company/blockchain-game-alliance/',
+        label: 'Linkedin',
+      },
     ].filter(Boolean)
   }, [router.locale, userProfileLink])
 
@@ -118,7 +129,7 @@ function Layout({ children }: PropsWithChildren) {
         }}
       />
       {children}
-      <Footer name={META_COMPANY_NAME} links={footerLinks} />
+      <Footer name={META_TITLE} links={footerLinks} />
     </Box>
   )
 }

@@ -14,7 +14,7 @@ import useRequiredQueryParamSingle from '../../../hooks/useRequiredQueryParamSin
 import LargeLayout from '../../../layouts/large'
 
 const CreatedPage: NextPage = () => {
-  const { PAGINATION_LIMIT, BASE_URL } = useEnvironment()
+  const { PAGINATION_LIMIT } = useEnvironment()
   const { t } = useTranslation('templates')
   const { pathname, replace, query } = useRouter()
   const { limit, offset, page } = usePaginateQuery()
@@ -44,11 +44,7 @@ const CreatedPage: NextPage = () => {
 
   return (
     <LargeLayout>
-      <UserProfileTemplate
-        address={userAddress}
-        currentTab="created"
-        loginUrlForReferral={BASE_URL + '/login'}
-      >
+      <UserProfileTemplate address={userAddress} currentTab="created">
         <TokenGrid<AssetsOrderBy>
           assets={assets}
           orderBy={{

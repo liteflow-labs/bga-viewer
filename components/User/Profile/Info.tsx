@@ -6,21 +6,16 @@ import {
   Icon,
   Stack,
   Text,
-  useToast,
   VStack,
 } from '@chakra-ui/react'
-import { useInvitation, useIsLoggedIn } from '@liteflow/react'
+import { useIsLoggedIn } from '@liteflow/react'
 import { HiBadgeCheck } from '@react-icons/all-files/hi/HiBadgeCheck'
-import { HiOutlineClipboard } from '@react-icons/all-files/hi/HiOutlineClipboard'
 import { HiOutlineGlobeAlt } from '@react-icons/all-files/hi/HiOutlineGlobeAlt'
 import { SiInstagram } from '@react-icons/all-files/si/SiInstagram'
 import { SiTwitter } from '@react-icons/all-files/si/SiTwitter'
 import useTranslation from 'next-translate/useTranslation'
-import { FC, useCallback, useEffect, useState } from 'react'
+import { FC } from 'react'
 import { AccountVerificationStatus } from '../../../graphql'
-import useAccount from '../../../hooks/useAccount'
-import useSigner from '../../../hooks/useSigner'
-import { formatError } from '../../../utils'
 import Link from '../../Link/Link'
 import MarkdownViewer from '../../MarkdownViewer'
 import WalletAddress from '../../Wallet/Address'
@@ -43,54 +38,10 @@ type Props = {
   loginUrlForReferral?: string
 }
 
-const UserProfileInfo: FC<Props> = ({ address, user, loginUrlForReferral }) => {
+const UserProfileInfo: FC<Props> = ({ address, user }) => {
   const { t } = useTranslation('components')
-  const signer = useSigner()
-  const { create: createReferralLink, creating: creatingReferralLink } =
-    useInvitation(signer)
-  const { isLoggedIn } = useAccount()
-  const toast = useToast()
-  const [referralUrl, setReferralUrl] = useState<string>()
-
   if (!address) throw new Error('account is falsy')
-
   const ownerLoggedIn = useIsLoggedIn(address)
-
-  useEffect(() => {
-    if (!isLoggedIn) return
-    if (referralUrl) return
-    if (!ownerLoggedIn) return
-    if (!loginUrlForReferral) return
-    if (!signer) return
-    if (creatingReferralLink) return
-    createReferralLink()
-      .then((id) => setReferralUrl(`${loginUrlForReferral}?ref=${id}`))
-      .catch((error) =>
-        toast({
-          title: formatError(error),
-          status: 'error',
-        }),
-      )
-  }, [
-    referralUrl,
-    isLoggedIn,
-    createReferralLink,
-    loginUrlForReferral,
-    toast,
-    signer,
-    creatingReferralLink,
-    ownerLoggedIn,
-  ])
-
-  const handleReferralCopyLink = useCallback(() => {
-    if (!referralUrl) return
-    void navigator.clipboard.writeText(referralUrl)
-    toast({
-      title: t('referral.form.copy'),
-      status: 'success',
-    })
-  }, [referralUrl, t, toast])
-
   return (
     <VStack as="aside" spacing={8} align="flex-start" px={6}>
       {user?.name && (
@@ -198,27 +149,6 @@ const UserProfileInfo: FC<Props> = ({ address, user, loginUrlForReferral }) => {
             </Button>
           )}
         </VStack>
-      )}
-
-      {ownerLoggedIn && loginUrlForReferral && (
-        <Stack spacing={4} maxW="100%">
-          <Heading as="h4" variant="heading2" color="brand.black">
-            {t('user.referral.title')}
-          </Heading>
-          <Text color="gray.500">{t('user.referral.description')}</Text>
-          <Button
-            variant="outline"
-            isLoading={!referralUrl || creatingReferralLink}
-            onClick={handleReferralCopyLink}
-            type="button"
-            width="full"
-            rightIcon={<Icon as={HiOutlineClipboard} ml={2} h={4} w={4} />}
-          >
-            <Text as="span" isTruncated>
-              {referralUrl}
-            </Text>
-          </Button>
-        </Stack>
       )}
     </VStack>
   )
