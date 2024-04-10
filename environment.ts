@@ -2,19 +2,7 @@ import request from 'graphql-request'
 import { LRUCache } from 'lru-cache'
 import { createContext } from 'react'
 import invariant from 'ts-invariant'
-import {
-  arbitrum,
-  arbitrumSepolia,
-  bsc,
-  bscTestnet,
-  Chain,
-  goerli as ethereumGoerli,
-  mainnet as ethereumMainnet,
-  neonDevnet,
-  neonMainnet,
-  polygon,
-  polygonMumbai,
-} from 'wagmi/chains'
+import { bscTestnet, Chain, polygon } from 'wagmi/chains'
 
 type RemoteConfig = {
   name: string
@@ -234,83 +222,7 @@ const getEnvironment = async (): Promise<Environment> => {
     FAVICON: metadata.FAVICON || '/favicon.svg',
     BRAND_COLOR: metadata.BRAND_COLOR || '#245BFF',
     // Wallet/chain configuration
-    CHAINS: [
-      ethereumMainnet,
-      ethereumGoerli,
-      bscTestnet,
-      bsc,
-      polygon,
-      polygonMumbai,
-      {
-        ...neonMainnet,
-        blockExplorers: {
-          default: {
-            name: 'Blockscout',
-            url: 'https://neon.blockscout.com',
-          },
-        },
-      },
-      {
-        ...neonDevnet,
-        blockExplorers: {
-          default: {
-            name: 'Blockscout',
-            url: 'https://neon-devnet.blockscout.com',
-          },
-        },
-      },
-      arbitrum,
-      arbitrumSepolia,
-      {
-        name: 'Lightlink Phoenix Mainnet',
-        network: 'lightlink-phoenix',
-        id: 1890,
-        nativeCurrency: {
-          decimals: 18,
-          name: 'Ether',
-          symbol: 'ETH',
-        },
-        rpcUrls: {
-          default: {
-            http: ['https://replicator.phoenix.lightlink.io/rpc/v1'],
-          },
-          public: {
-            http: ['https://replicator.phoenix.lightlink.io/rpc/v1'],
-          },
-        },
-        blockExplorers: {
-          default: {
-            name: 'LightLink Phoenix Explorer',
-            url: 'https://phoenix.lightlink.io',
-          },
-        },
-      },
-      {
-        name: 'Lightlink Pegasus Testnet',
-        network: 'lightlink-pegasus',
-        testnet: true,
-        id: 1891,
-        nativeCurrency: {
-          decimals: 18,
-          name: 'Ether',
-          symbol: 'ETH',
-        },
-        rpcUrls: {
-          default: {
-            http: ['https://replicator.pegasus.lightlink.io/rpc/v1'],
-          },
-          public: {
-            http: ['https://replicator.pegasus.lightlink.io/rpc/v1'],
-          },
-        },
-        blockExplorers: {
-          default: {
-            name: 'LightLink Pegasus Explorer',
-            url: 'https://pegasus.lightlink.io',
-          },
-        },
-      },
-    ],
+    CHAINS: [bscTestnet, polygon],
     WALLET_CONNECT_PROJECT_ID:
       process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID,
     MAGIC_API_KEY: process.env.NEXT_PUBLIC_MAGIC_API_KEY,
