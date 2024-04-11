@@ -2,7 +2,7 @@ import request from 'graphql-request'
 import { LRUCache } from 'lru-cache'
 import { createContext } from 'react'
 import invariant from 'ts-invariant'
-import { bscTestnet, Chain, polygon } from 'wagmi/chains'
+import { Chain, polygon } from 'wagmi/chains'
 
 type RemoteConfig = {
   name: string
@@ -222,7 +222,7 @@ const getEnvironment = async (): Promise<Environment> => {
     FAVICON: metadata.FAVICON || '/favicon.svg',
     BRAND_COLOR: metadata.BRAND_COLOR || '#245BFF',
     // Wallet/chain configuration
-    CHAINS: [bscTestnet, polygon],
+    CHAINS: [polygon],
     WALLET_CONNECT_PROJECT_ID:
       process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID,
     MAGIC_API_KEY: process.env.NEXT_PUBLIC_MAGIC_API_KEY,
