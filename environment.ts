@@ -82,7 +82,7 @@ export type Environment = {
    * Wallet/chain configuration
    */
 
-  // List of supported chains. Liteflow is supporting the following: ethereumMainnet, ethereumGoerli, bscTestnet, bsc, polygon, polygonMumbai
+  // List of supported chains. Liteflow is supporting the following: ethereumMainnet, ethereumSepolia, bscTestnet, bsc, polygon, polygonAmoy, neonMainnet, neonDevnet, arbitrum, arbitrumSepolia, lightlinkPhoenix, lightlinkPegasus
   CHAINS: Chain[]
 
   // Wallet connect project ID, you can get one at https://cloud.walletconnect.com/
